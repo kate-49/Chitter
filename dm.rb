@@ -34,6 +34,8 @@ end
 
 class Chitter < Sinatra::Base
 
+  attr_accessor :user
+
   get '/' do
     redirect '/sign_in'
   end
@@ -43,9 +45,9 @@ class Chitter < Sinatra::Base
   end
 
   post '/sign_in' do
-    @user_1 = User.new
-    @user_1.user_name = (params[:username])
-    @user_1.save
+    user = User.new
+    user.user_name = (params[:username])
+    user.save
     redirect '/new_post'
   end
 
@@ -54,11 +56,8 @@ class Chitter < Sinatra::Base
   end
 
   post '/posts' do
-    @user_2 = User.new
-    @user_2.user_name = 'Bob'
-    @user_2.save
     @post = Post.new
-    @post.user = @user_2
+    @post.user = user
     @post.title = (params[:title])
     @post.body = (params[:body])
     @post.save
