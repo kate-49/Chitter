@@ -66,7 +66,8 @@ class Chitter < Sinatra::Base
   end
 
   get '/posts' do
-    @posts = Post.all
+    posts = Post.all
+    @new_posts = posts.sort!
     erb :posts
   end
 
@@ -74,14 +75,8 @@ class Chitter < Sinatra::Base
     erb :search_posts
   end
 
-  post '/search_results' do
-    search_post = session[:search]
-    @searching_posts
-    Post.all { |post|
-      if post.title == search_post
-        @searching_posts.push(post)
-      end
-    }
+  post '/search_posts' do
+    @search_post = params[:search]
     erb :search_results
   end
 

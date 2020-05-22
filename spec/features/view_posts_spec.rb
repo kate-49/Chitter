@@ -11,11 +11,11 @@ feature 'Viewing posts' do
     visit('/')
     fill_in('username', with: 'Test')
     click_button('Submit')
-    fill_in('title', with: 'testy')
+    fill_in('title', with: 'test2332')
     fill_in('body', with: 'test2')
     click_button('Submit')
 
-    expect(page).to have_content('testy')
+    expect(page).to have_content('test2332')
     expect(page).to have_content('test2')
     expect(page).to have_content('Posted at')
   end

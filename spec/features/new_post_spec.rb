@@ -19,11 +19,11 @@ feature 'Adding a new post' do
     visit('/')
     fill_in('username', with: 'Test')
     click_button('Submit')
-    fill_in('title', with: 'newtest100')
+    fill_in('title', with: 'newtest110')
     fill_in('body', with: 'generic text')
     click_button('Submit')
 
-    expect(page).to have_content('newtest100')
+    expect(page).to have_content('newtest110')
     expect(page).to have_content('generic text')
   end
 end
