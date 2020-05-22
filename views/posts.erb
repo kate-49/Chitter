@@ -1,11 +1,11 @@
-<center><h1> Posts </h1></center>
+<center><h1> All Chitter Posts </h1></center>
 
 <ul>
-  <% @posts.sort %>
   <% @posts.each do |post| %>
     <li>
       <h2> <%= post.title %> </h2>
       <p> <%= post.body %> </p>
+      <p> Posted at </p>
       <p> <%= post.updated_at %> </p>
     </li>
   <% end %>

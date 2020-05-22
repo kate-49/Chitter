@@ -4,7 +4,7 @@ require 'dm-validations'
 require 'dm-migrations'
 require 'sinatra'
 
-DataMapper.setup :default, "sqlite://#{Dir.pwd}/data.db"
+DataMapper.setup :default, "sqlite://#{Dir.pwd}/nine.db"
 
 class User
   include DataMapper::Resource
@@ -33,8 +33,7 @@ class Post
 end
 
 class Chitter < Sinatra::Base
-
-  attr_accessor :user
+    enable :sessions
 
   get '/' do
     redirect '/sign_in'
@@ -48,6 +47,7 @@ class Chitter < Sinatra::Base
     user = User.new
     user.user_name = (params[:username])
     user.save
+    session[:user_id] = user.id
     redirect '/new_post'
   end
 
@@ -57,7 +57,7 @@ class Chitter < Sinatra::Base
 
   post '/new_post' do
     post = Post.new
-    post.user = user
+    post.user = User.get(session[:user_id])
     post.title = (params[:title])
     post.body = (params[:body])
     post.updated_at
@@ -72,6 +72,17 @@ class Chitter < Sinatra::Base
 
   get '/search_posts' do
     erb :search_posts
+  end
+
+  post '/search_results' do
+    search_post = session[:search]
+    @searching_posts
+    Post.all { |post|
+      if post.title == search_post
+        @searching_posts.push(post)
+      end
+    }
+    erb :search_results
   end
 
   run! if app_file == $0
