@@ -1,0 +1,14 @@
+<h1>Your posts!</h1>
+
+<h2> <%= @user_1.user_name %> </h2>
+
+<ul>
+  <% @users_posts.each do |post| %>
+    <li>
+      <%= post.title %>
+      <%= post.body %>
+    </li>
+  <% end %>
+</ul>
+
+<a href="/new_post">New post</a>
