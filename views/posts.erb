@@ -3,9 +3,9 @@
 <ul>
   <% @posts.each do |post| %>
     <li>
-      <%= post.title %>
-
-      <%= post.body %>
+      <h2> <%= post.title %> </h2>
+      <p> <%= post.body %> </p>
+      <p> <%= post.updated_at %> </p>
     </li>
   <% end %>
 </ul>

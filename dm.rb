@@ -56,14 +56,19 @@ class Chitter < Sinatra::Base
   end
 
   post '/posts' do
-    @post = Post.new
-    @post.user = user
-    @post.title = (params[:title])
-    @post.body = (params[:body])
-    @post.save
+    post = Post.new
+    post.user = user
+    post.title = (params[:title])
+    post.body = (params[:body])
+    post.updated_at
+    post.save
     @posts = Post.all
     erb :posts
   end
+
+  # get 'your_posts' do
+  #
+  # end
 
   run! if app_file == $0
 
